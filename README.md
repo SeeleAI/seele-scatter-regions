@@ -9,6 +9,9 @@ The plugin ships source code only. It does not include meshes, materials, or
 sample content packs. Bring your own Static Mesh assets and assign them to a
 `ScatterRegionRecipeDataAsset`.
 
+Want to try Seele's agentic workspace and related tools? Visit
+[seeles.ai/workspace](https://www.seeles.ai/workspace).
+
 ## Requirements
 
 - Unreal Engine 5.5
