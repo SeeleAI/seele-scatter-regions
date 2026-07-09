@@ -1,0 +1,7 @@
+{
+  "region_type": "farm",
+  "center": [25000, -18000, 0],
+  "size_m": 80,
+  "seed": 55201,
+  "recipe_asset": "/Game/MyRecipes/DA_Farm.DA_Farm"
+}

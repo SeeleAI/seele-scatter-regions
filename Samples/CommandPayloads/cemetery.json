@@ -1,0 +1,7 @@
+{
+  "region_type": "cemetery",
+  "center": [-18000, 42000, 0],
+  "size_m": 50,
+  "seed": 91834,
+  "recipe_asset": "/Game/MyRecipes/DA_Cemetery.DA_Cemetery"
+}

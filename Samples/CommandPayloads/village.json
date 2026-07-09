@@ -1,0 +1,7 @@
+{
+  "region_type": "village",
+  "center": [75000, 37000, 0],
+  "size_m": 150,
+  "seed": 76101,
+  "recipe_asset": "/Game/MyRecipes/DA_Village.DA_Village"
+}

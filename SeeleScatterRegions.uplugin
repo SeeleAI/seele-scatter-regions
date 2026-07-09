@@ -1,0 +1,28 @@
+{
+  "FileVersion": 3,
+  "Version": 1,
+  "VersionName": "0.1.0",
+  "FriendlyName": "Seele Scatter Regions",
+  "Description": "Procedural scatter-region generation for Unreal Engine editor worlds.",
+  "Category": "Procedural",
+  "CreatedBy": "Seele AI",
+  "CreatedByURL": "https://github.com/SeeleAI",
+  "DocsURL": "https://github.com/SeeleAI/seele-scatter-regions",
+  "SupportURL": "https://github.com/SeeleAI/seele-scatter-regions/issues",
+  "CanContainContent": false,
+  "IsBetaVersion": true,
+  "IsExperimentalVersion": false,
+  "Installed": false,
+  "Modules": [
+    {
+      "Name": "SeeleScatterRegions",
+      "Type": "Runtime",
+      "LoadingPhase": "Default"
+    },
+    {
+      "Name": "SeeleScatterRegionsEditor",
+      "Type": "Editor",
+      "LoadingPhase": "Default"
+    }
+  ]
+}
