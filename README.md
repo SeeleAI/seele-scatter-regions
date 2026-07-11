@@ -5,12 +5,17 @@ scatter-style regions such as villages, farms, and cemeteries. It is designed
 as a counterpart to regular city generation workflows that use grid roads,
 plots, and aligned building blocks.
 
+![Jiangnan scatter region preview](Docs/images/jiangnan-scatter-region-preview.png)
+
+Example output from a Jiangnan-style sample recipe using project-provided
+meshes and materials.
+
 The plugin ships source code only. It does not include meshes, materials, or
 sample content packs. Bring your own Static Mesh assets and assign them to a
 `ScatterRegionRecipeDataAsset`.
 
-Want to try Seele's agentic workspace and related tools? Visit
-[seeles.ai/workspace](https://www.seeles.ai/workspace).
+Want to try Seele's Unreal scene generation workflow? Visit
+[seeles.ai/features/create/unreal-game](https://www.seeles.ai/features/create/unreal-game).
 
 ## Requirements
 
