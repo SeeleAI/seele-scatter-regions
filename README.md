@@ -28,11 +28,6 @@ Define a reusable recipe, choose a location, size, and seed, then generate
 landscape-projected instanced content through C++, an Editor Subsystem, or JSON
 automation.
 
-## Try Seele for Unreal Engine
-
-Create Unreal Engine scenes with Seele AI. Explore the
-[Unreal game creation workflow](https://www.seeles.ai/features/create/unreal-game).
-
 ## What It Generates
 
 | Region | Generated content |
@@ -58,11 +53,11 @@ Create Unreal Engine scenes with Seele AI. Explore the
 
 ## See It in Action
 
-![Jiangnan scatter region preview](Docs/images/jiangnan-scatter-region-preview.png)
+The banner above shows Jiangnan-style village, farm, and cemetery regions
+generated with project-provided meshes and materials.
 
-Jiangnan-style village, farm, and cemetery regions generated with
-project-provided meshes and materials. Art assets shown in the image are not
-included with the plugin.
+Want to create Unreal Engine scenes with Seele AI? Explore the
+[Unreal game creation workflow](https://www.seeles.ai/features/create/unreal-game).
 
 ## Quick Start
 
