@@ -22,6 +22,11 @@ region type:
 
 Each slot accepts Static Mesh references plus scale and weight metadata.
 
+Editable starter recipes are included under `/SeeleScatterRegions/Recipes`.
+They use Unreal Engine Basic Shapes only, so you can verify the plugin without
+redistributing the showcase environment assets. Duplicate a starter recipe
+into your project content before adapting it for production use.
+
 ## Generate a Region
 
 Use C++ or editor automation to call the generator with:

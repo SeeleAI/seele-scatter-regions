@@ -9,6 +9,8 @@ $requiredFiles = @(
     'LICENSE',
     'NOTICE.md',
     'CHANGELOG.md',
+    'Config/DefaultSeeleScatterRegions.ini',
+    'Resources/Icon128.png',
     '.gitignore',
     '.gitattributes',
     'SeeleScatterRegions.uplugin',
@@ -35,6 +37,9 @@ $requiredFiles = @(
     'Docs/recipe-assets.md',
     'Docs/generation-api.md',
     'Docs/migration-from-irregular.md',
+    'Content/Recipes/DA_Village_Demo.uasset',
+    'Content/Recipes/DA_Farm_Demo.uasset',
+    'Content/Recipes/DA_Cemetery_Demo.uasset',
     'Samples/CommandPayloads/village.json',
     'Samples/CommandPayloads/farm.json',
     'Samples/CommandPayloads/cemetery.json',
@@ -50,6 +55,41 @@ foreach ($relativePath in $requiredFiles) {
 
 if ($missing.Count -gt 0) {
     throw "Missing required public package files: $($missing -join ', ')"
+}
+
+$pluginDescriptorPath = Join-Path $Root 'SeeleScatterRegions.uplugin'
+$pluginDescriptor = Get-Content -LiteralPath $pluginDescriptorPath -Raw | ConvertFrom-Json
+$descriptorIssues = @()
+if ($pluginDescriptor.CanContainContent -ne $true) {
+    $descriptorIssues += 'SeeleScatterRegions.uplugin must set CanContainContent to true'
+}
+if ($pluginDescriptor.EngineVersion -ne '5.5.0') {
+    $descriptorIssues += 'SeeleScatterRegions.uplugin must set EngineVersion to 5.5.0'
+}
+if (-not $pluginDescriptor.Modules -or $pluginDescriptor.Modules.Count -lt 1) {
+    $descriptorIssues += 'SeeleScatterRegions.uplugin must declare at least one code module'
+}
+if ($descriptorIssues.Count -gt 0) {
+    throw "Invalid Fab plugin descriptor: $($descriptorIssues -join '; ')"
+}
+
+$filterPath = Join-Path $Root 'Config/FilterPlugin.ini'
+$filterContent = Get-Content -LiteralPath $filterPath -Raw
+$requiredFilterEntries = @(
+    '/README.md',
+    '/LICENSE',
+    '/NOTICE.md',
+    '/CHANGELOG.md',
+    '/Config/...',
+    '/Docs/*.md',
+    '/Docs/images/...',
+    '/Samples/...'
+)
+$missingFilterEntries = @(
+    $requiredFilterEntries | Where-Object { $filterContent -notmatch [regex]::Escape($_) }
+)
+if ($missingFilterEntries.Count -gt 0) {
+    throw "Config/FilterPlugin.ini is missing release entries: $($missingFilterEntries -join ', ')"
 }
 
 $blockedDirectories = @(
@@ -78,7 +118,7 @@ $textFiles = Get-ChildItem -LiteralPath $Root -Recurse -File |
     Where-Object {
         $_.FullName -notmatch '\\.git\\' -and
         $_.FullName -ne $PSCommandPath -and
-        $_.Extension -notin @('.png', '.uasset', '.umap', '.dll', '.pdb', '.lib', '.exe')
+        $_.Extension -notin @('.png', '.uasset', '.umap', '.dll', '.pdb', '.lib', '.exe', '.zip')
     }
 
 $blockedPatterns = @(

@@ -22,6 +22,9 @@ Package/
 *.lib
 *.exe
 *.obj
+*.zip
+__pycache__/
+*.pyc
 
 # Local automation state
 *.log

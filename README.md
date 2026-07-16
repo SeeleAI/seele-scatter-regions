@@ -85,6 +85,11 @@ In the Content Browser, create a `ScatterRegionRecipeDataAsset`, choose
 `Village`, `Farm`, or `Cemetery`, and assign your Static Mesh assets to the
 available slots.
 
+The plugin also includes editable starter recipes under
+`/SeeleScatterRegions/Recipes`. They reference Unreal
+Engine Basic Shapes only and are intended for installation checks and recipe
+experimentation, not as production art.
+
 See [Recipe Assets](Docs/recipe-assets.md) for slot definitions and mesh
 settings.
 
@@ -151,9 +156,10 @@ projected output.
 
 ## Bring Your Own Assets
 
-This repository ships plugin source code only. It does not include the meshes,
-materials, textures, or content packs shown in the preview. Create recipe assets
-inside your Unreal project and assign your own Static Mesh content.
+This repository ships plugin source code and three lightweight starter recipe
+assets. It does not include the meshes, materials, textures, or content packs
+shown in the preview. Create recipe assets inside your Unreal project and
+assign your own Static Mesh content.
 
 Generated build output, private automation tools, and unreleased content assets
 are intentionally excluded from this repository.

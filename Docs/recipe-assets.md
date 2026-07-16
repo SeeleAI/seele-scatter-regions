@@ -3,6 +3,11 @@
 `UScatterRegionRecipeDataAsset` defines the meshes and density settings used by
 the generator.
 
+The plugin includes editable starter recipes under
+`/SeeleScatterRegions/Recipes`. They reference Unreal Engine Basic Shapes so
+the package can be validated without bundling the showcase environment art.
+Duplicate a starter recipe into project content before replacing its meshes.
+
 ## Shared Mesh Data
 
 Each mesh entry contains:
