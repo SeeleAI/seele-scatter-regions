@@ -6,6 +6,7 @@ $ErrorActionPreference = 'Stop'
 
 $requiredFiles = @(
     'README.md',
+    'README.zh-CN.md',
     'LICENSE',
     'NOTICE.md',
     'CHANGELOG.md',
@@ -36,6 +37,8 @@ $requiredFiles = @(
     'Docs/quickstart.md',
     'Docs/recipe-assets.md',
     'Docs/generation-api.md',
+    'Docs/faq.md',
+    'Docs/faq.zh-CN.md',
     'Docs/migration-from-irregular.md',
     'Content/Recipes/DA_Village_Demo.uasset',
     'Content/Recipes/DA_Farm_Demo.uasset',
@@ -76,7 +79,7 @@ if ($descriptorIssues.Count -gt 0) {
 $filterPath = Join-Path $Root 'Config/FilterPlugin.ini'
 $filterContent = Get-Content -LiteralPath $filterPath -Raw
 $requiredFilterEntries = @(
-    '/README.md',
+    '/README*.md',
     '/LICENSE',
     '/NOTICE.md',
     '/CHANGELOG.md',

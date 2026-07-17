@@ -4,7 +4,7 @@
   "VersionName": "0.1.0",
   "EngineVersion": "5.5.0",
   "FriendlyName": "Seele Scatter Regions",
-  "Description": "Procedural scatter-region generation for Unreal Engine editor worlds.",
+  "Description": "Open-source procedural world-building for Unreal Engine 5.5: generate seeded villages, farms, and cemeteries from reusable Static Mesh recipes.",
   "Category": "Procedural",
   "CreatedBy": "Seele AI",
   "CreatedByURL": "https://github.com/SeeleAI",
