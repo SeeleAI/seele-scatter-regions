@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased
+
+- Improve GitHub discovery with a search-intent-focused README title,
+  compatibility details, and direct FAQ answers.
+- Add a Simplified Chinese README and bilingual FAQ documentation.
+- Expand plugin package metadata and include localized README files in release
+  packages.
+
 ## 0.1.0
 
 - Initial public Unreal Engine plugin scaffold.

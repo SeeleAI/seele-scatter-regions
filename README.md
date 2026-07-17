@@ -1,4 +1,9 @@
-# Seele Scatter Regions for Unreal Engine
+# Seele Scatter Regions — Procedural World-Building for Unreal Engine 5
+
+<p align="center">
+  <strong>English</strong> &middot;
+  <a href="README.zh-CN.md">简体中文</a>
+</p>
 
 <p align="center">
   <img src="Docs/images/seele-scatter-regions-banner.png" alt="Seele Scatter Regions procedural village, farm, and cemetery generation for Unreal Engine 5" width="1600">
@@ -16,17 +21,21 @@
   <a href="Docs/quickstart.md">Quickstart</a> &middot;
   <a href="Docs/generation-api.md">Generation API</a> &middot;
   <a href="Docs/recipe-assets.md">Recipe Assets</a> &middot;
+  <a href="Docs/faq.md">FAQ</a> &middot;
   <a href="Samples/CommandPayloads">Samples</a> &middot;
   <a href="CHANGELOG.md">Changelog</a>
 </p>
 
-**Seele Scatter Regions** is an open-source Unreal Engine 5 plugin for
-generating naturally scattered villages, farms, and cemeteries from your own
-Static Mesh assets.
+**Seele Scatter Regions** is an open-source Unreal Engine 5.5 editor plugin for
+procedural environment generation and world building. It generates naturally
+scattered villages, farms, and cemeteries from your own Static Mesh assets.
 
 Define a reusable recipe, choose a location, size, and seed, then generate
 landscape-projected instanced content through C++, an Editor Subsystem, or JSON
 automation.
+
+It is a lightweight, recipe-driven alternative for teams that need repeatable
+region layouts without requiring Unreal Engine's PCG framework.
 
 ## What It Generates
 
@@ -50,6 +59,16 @@ automation.
   Editor Subsystem, or the JSON command adapter.
 - **Structured results** - inspect the generated actor, instance and component
   counts, slot counts, bounds, warnings, and errors.
+
+## Compatibility
+
+| Requirement | Current support |
+| --- | --- |
+| **Unreal Engine** | 5.5 (validated) |
+| **Generation environment** | Unreal Editor; generation is not exposed as a packaged-game runtime system |
+| **Project type** | C++ Unreal project |
+| **Platforms** | Win64 release workflow validated; source may be built on other UE-supported desktop platforms |
+| **Content** | Bring your own Static Mesh assets; lightweight Basic Shapes recipes are included for testing |
 
 ## See It in Action
 
@@ -151,8 +170,36 @@ projected output.
 | [Quickstart](Docs/quickstart.md) | Install the plugin, create a recipe, generate a region, and validate output |
 | [Recipe Assets](Docs/recipe-assets.md) | Configure shared mesh data and region-specific slots |
 | [Generation API](Docs/generation-api.md) | Integrate through C++ and JSON and inspect result fields |
+| [Frequently Asked Questions](Docs/faq.md) | Check engine support, runtime scope, PCG requirements, assets, and licensing |
 | [Sample Payloads](Samples/CommandPayloads) | Start from village, farm, and cemetery JSON examples |
 | [Changelog](CHANGELOG.md) | Review versioned changes |
+
+## Frequently Asked Questions
+
+### What can this Unreal Engine plugin generate?
+
+It generates recipe-driven village, farm, and cemetery layouts with roads,
+boundaries, buildings, crops, tombs, and supporting props. The exact meshes
+come from recipe assets that you control.
+
+### Does it require the Unreal Engine PCG framework?
+
+No. Seele Scatter Regions implements its own seeded editor-side generator and
+does not depend on the Unreal Engine PCG plugin.
+
+### Can it generate content at game runtime?
+
+Not in version 0.1.0. Generation runs in the Unreal Editor module. The generated
+actors and instanced mesh components can be saved with the edited level.
+
+### Which Unreal Engine versions are supported?
+
+Version 0.1.0 is built and validated for Unreal Engine 5.5. Other engine
+versions are not yet part of the tested compatibility matrix.
+
+Read the [complete FAQ](Docs/faq.md) for answers about deterministic seeds,
+Landscape projection, Blueprint and JSON automation, included assets, and the
+MIT license.
 
 ## Bring Your Own Assets
 
