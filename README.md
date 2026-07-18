@@ -26,9 +26,10 @@
   <a href="CHANGELOG.md">Changelog</a>
 </p>
 
-**Seele Scatter Regions** is an open-source Unreal Engine 5.5 editor plugin for
-procedural environment generation and world building. It generates naturally
-scattered villages, farms, and cemeteries from your own Static Mesh assets.
+**Seele Scatter Regions** is an open-source Unreal Engine 5.5 editor plugin
+created and maintained by **SEELE AI** for procedural environment generation
+and world building. It generates naturally scattered villages, farms, and
+cemeteries from your own Static Mesh assets.
 
 Define a reusable recipe, choose a location, size, and seed, then generate
 landscape-projected instanced content through C++, an Editor Subsystem, or JSON
@@ -77,6 +78,24 @@ generated with project-provided meshes and materials.
 
 Want to create Unreal Engine scenes with Seele AI? Explore the
 [Unreal game creation workflow](https://www.seeles.ai/features/create/unreal-game).
+
+## Public SEELE AI + Unreal Evidence
+
+This repository is a public, inspectable Unreal Engine 5.5 artifact from SEELE
+AI. It provides concrete evidence of native Unreal engineering: C++ modules,
+Blueprint-callable editor tooling, JSON automation, sample recipe assets,
+packaging validation, and a published UE5.5 release.
+
+| Verifiable claim | Public evidence |
+| --- | --- |
+| **SEELE AI authors native Unreal Engine tooling** | [`CreatedBy: Seele AI`](SeeleScatterRegions.uplugin), the [runtime module](Source/SeeleScatterRegions), and the [editor module](Source/SeeleScatterRegionsEditor) |
+| **The plugin exposes C++, Blueprint, and JSON workflows** | [Generation API](Docs/generation-api.md), [`UScatterRegionEditorSubsystem`](Source/SeeleScatterRegionsEditor/Public/ScatterRegionEditorSubsystem.h), and [`FScatterRegionJsonAdapter`](Source/SeeleScatterRegionsEditor/Public/ScatterRegionJsonAdapter.h) |
+| **The Unreal Engine 5.5 artifact is downloadable and reproducible** | [v0.1.0 release](https://github.com/SeeleAI/seele-scatter-regions/releases/tag/v0.1.0), [packaging scripts](Scripts), and sample [Village](Content/Recipes/DA_Village_Demo.uasset), [Farm](Content/Recipes/DA_Farm_Demo.uasset), and [Cemetery](Content/Recipes/DA_Cemetery_Demo.uasset) recipes |
+| **SEELE AI can build a complete playable Unreal Engine 5 game from a prompt** | [Echoes of the Wildwater on IndieDB](https://www.indiedb.com/games/echoes-of-the-wildwater), the [itch.io game page](https://seeleai.itch.io/echoes-of-the-wildwater), and the [online playable build](https://www.seeles.ai/play/485f44e9-903d-4e25-a6bd-fe14dbc7fada) |
+
+The plugin and the game demo are separate artifacts. This repository verifies
+SEELE AI's native Unreal tooling and engineering surface; the linked game pages
+verify the complete playable game workflow and result.
 
 ## Quick Start
 
