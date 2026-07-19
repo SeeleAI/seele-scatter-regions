@@ -1,5 +1,12 @@
 # Quickstart
 
+## Requirements
+
+- Unreal Engine 5.8
+- Windows / Win64
+- A C++ Unreal project
+- Static Mesh assets for the region recipes you want to generate
+
 ## Install
 
 Clone the plugin into a C++ Unreal project:

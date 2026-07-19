@@ -1,3 +1,5 @@
+// Copyright 2026 QUANLING SHENZHEN NETWORK CO., LTD. All Rights Reserved.
+
 #include "ScatterRegionRecipeDataAsset.h"
 
 namespace

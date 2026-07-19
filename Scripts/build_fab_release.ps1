@@ -1,7 +1,13 @@
 param(
-    [string]$RunUAT = 'C:\Program Files\Epic Games\UE_5.5\Engine\Build\BatchFiles\RunUAT.bat',
+    [string]$ReleaseVersion = '0.1.1',
 
-    [string]$ArtifactRoot = (Join-Path $env:LOCALAPPDATA 'SeeleScatterRegions\Fab\v0.1.0'),
+    [string]$EngineVersion = '5.8.0',
+
+    [string]$TargetPlatform = 'Win64',
+
+    [string]$RunUAT,
+
+    [string]$ArtifactRoot,
 
     [string]$ZipPath
 )
@@ -9,8 +15,17 @@ param(
 $ErrorActionPreference = 'Stop'
 
 $root = (Resolve-Path (Join-Path $PSScriptRoot '..')).Path
+$engineMajorMinor = ($EngineVersion -split '\.')[0..1] -join '.'
+$engineLabel = "UE$engineMajorMinor"
+$expectedZipName = "SeeleScatterRegions-v$ReleaseVersion-$engineLabel-$TargetPlatform.zip"
+if (-not $RunUAT) {
+    $RunUAT = "C:\Program Files\Epic Games\UE_$engineMajorMinor\Engine\Build\BatchFiles\RunUAT.bat"
+}
+if (-not $ArtifactRoot) {
+    $ArtifactRoot = Join-Path $env:LOCALAPPDATA "SeeleScatterRegions\Fab\v$ReleaseVersion-$engineLabel"
+}
 if (-not $ZipPath) {
-    $ZipPath = Join-Path $root 'SeeleScatterRegions-v0.1.0-UE5.5-Win64.zip'
+    $ZipPath = Join-Path $root $expectedZipName
 }
 elseif (-not [System.IO.Path]::IsPathRooted($ZipPath)) {
     $ZipPath = Join-Path $root $ZipPath
@@ -18,7 +33,6 @@ elseif (-not [System.IO.Path]::IsPathRooted($ZipPath)) {
 $ZipPath = [System.IO.Path]::GetFullPath($ZipPath)
 $ArtifactRoot = [System.IO.Path]::GetFullPath($ArtifactRoot)
 
-$expectedZipName = 'SeeleScatterRegions-v0.1.0-UE5.5-Win64.zip'
 if ([System.IO.Path]::GetFileName($ZipPath) -ne $expectedZipName) {
     throw "ZipPath must use the release filename $expectedZipName"
 }
@@ -28,7 +42,11 @@ if (-not $ArtifactRoot.StartsWith($safeArtifactBase + [System.IO.Path]::Director
     throw "ArtifactRoot must stay under $safeArtifactBase"
 }
 
-& powershell -NoProfile -ExecutionPolicy Bypass -File (Join-Path $PSScriptRoot 'validate_public_package.ps1') -Root $root
+& powershell -NoProfile -ExecutionPolicy Bypass -File (Join-Path $PSScriptRoot 'validate_public_package.ps1') `
+    -Root $root `
+    -ExpectedVersionName $ReleaseVersion `
+    -ExpectedEngineVersion $EngineVersion `
+    -ExpectedPlatform $TargetPlatform
 if ($LASTEXITCODE -ne 0) {
     exit $LASTEXITCODE
 }
@@ -51,6 +69,20 @@ $stagedPlugin = Join-Path $stagingRoot 'SeeleScatterRegions'
 New-Item -ItemType Directory -Path $stagedPlugin -Force | Out-Null
 Get-ChildItem -LiteralPath $pluginBuild -Force | Copy-Item -Destination $stagedPlugin -Recurse -Force
 
+$fabExcludedPaths = @(
+    'Binaries',
+    'Build',
+    'Intermediate',
+    'Saved',
+    'LICENSE'
+)
+foreach ($relativePath in $fabExcludedPaths) {
+    $candidate = Join-Path $stagedPlugin $relativePath
+    if (Test-Path -LiteralPath $candidate) {
+        Remove-Item -LiteralPath $candidate -Recurse -Force
+    }
+}
+
 if (Test-Path -LiteralPath $ZipPath) {
     Remove-Item -LiteralPath $ZipPath -Force
 }
@@ -58,7 +90,10 @@ Compress-Archive -LiteralPath $stagedPlugin -DestinationPath $ZipPath -Compressi
 
 & powershell -NoProfile -ExecutionPolicy Bypass -File (Join-Path $PSScriptRoot 'validate_fab_package.ps1') `
     -PluginRoot $stagedPlugin `
-    -ZipPath $ZipPath
+    -ZipPath $ZipPath `
+    -ExpectedVersionName $ReleaseVersion `
+    -ExpectedEngineVersion $EngineVersion `
+    -ExpectedPlatform $TargetPlatform
 if ($LASTEXITCODE -ne 0) {
     exit $LASTEXITCODE
 }

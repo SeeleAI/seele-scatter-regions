@@ -12,8 +12,8 @@ how densely to place them.
 
 ## Which Unreal Engine versions are supported?
 
-Version 0.1.0 targets and is validated with Unreal Engine 5.5. Compatibility
-with other Unreal Engine versions has not yet been validated.
+Version 0.1.1 targets and is validated with Unreal Engine 5.8. Unreal Engine
+5.5 users can use version 0.1.0; other versions have not been validated.
 
 ## Does it require Unreal Engine's PCG framework?
 
@@ -23,7 +23,7 @@ describes the workflow, not a dependency on the PCG framework.
 
 ## Can it generate content at game runtime?
 
-Not in version 0.1.0. The public generator belongs to the Unreal Editor module.
+Not in version 0.1.1. The public generator belongs to the Unreal Editor module.
 Generated actors and `UInstancedStaticMeshComponent` output can be saved with
 the edited level, but the repository does not expose generation as a packaged-
 game runtime feature.
@@ -60,7 +60,7 @@ you can test installation, then duplicate a recipe and assign your own assets.
 
 ## What regions are available?
 
-Version 0.1.0 supports `Village`, `Farm`, and `Cemetery`. Region requests and
+Version 0.1.1 supports `Village`, `Farm`, and `Cemetery`. Region requests and
 proposals are welcome in [GitHub Discussions](https://github.com/SeeleAI/seele-scatter-regions/discussions).
 
 ## Is the plugin free and open source?

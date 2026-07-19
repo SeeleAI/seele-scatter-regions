@@ -1,5 +1,11 @@
 param(
-    [string]$Root = (Resolve-Path (Join-Path $PSScriptRoot '..')).Path
+    [string]$Root = (Resolve-Path (Join-Path $PSScriptRoot '..')).Path,
+
+    [string]$ExpectedVersionName = '0.1.1',
+
+    [string]$ExpectedEngineVersion = '5.8.0',
+
+    [string]$ExpectedPlatform = 'Win64'
 )
 
 $ErrorActionPreference = 'Stop'
@@ -66,14 +72,45 @@ $descriptorIssues = @()
 if ($pluginDescriptor.CanContainContent -ne $true) {
     $descriptorIssues += 'SeeleScatterRegions.uplugin must set CanContainContent to true'
 }
-if ($pluginDescriptor.EngineVersion -ne '5.5.0') {
-    $descriptorIssues += 'SeeleScatterRegions.uplugin must set EngineVersion to 5.5.0'
+if ($pluginDescriptor.VersionName -ne $ExpectedVersionName) {
+    $descriptorIssues += "SeeleScatterRegions.uplugin must set VersionName to $ExpectedVersionName"
+}
+if ($pluginDescriptor.EngineVersion -ne $ExpectedEngineVersion) {
+    $descriptorIssues += "SeeleScatterRegions.uplugin must set EngineVersion to $ExpectedEngineVersion"
 }
 if (-not $pluginDescriptor.Modules -or $pluginDescriptor.Modules.Count -lt 1) {
     $descriptorIssues += 'SeeleScatterRegions.uplugin must declare at least one code module'
 }
+foreach ($module in $pluginDescriptor.Modules) {
+    $platforms = @($module.PlatformAllowList)
+    if ($platforms.Count -ne 1 -or $platforms[0] -ne $ExpectedPlatform) {
+        $descriptorIssues += "Module '$($module.Name)' must set PlatformAllowList to $ExpectedPlatform"
+    }
+}
 if ($descriptorIssues.Count -gt 0) {
     throw "Invalid Fab plugin descriptor: $($descriptorIssues -join '; ')"
+}
+
+$copyrightNotice = '// Copyright 2026 QUANLING SHENZHEN NETWORK CO., LTD. All Rights Reserved.'
+$codeFiles = Get-ChildItem -LiteralPath (Join-Path $Root 'Source') -Recurse -File |
+    Where-Object { $_.Extension -in @('.h', '.cpp', '.cs') }
+$missingCopyright = @(
+    $codeFiles | Where-Object {
+        (Get-Content -LiteralPath $_.FullName -TotalCount 1) -ne $copyrightNotice
+    } | ForEach-Object {
+        $_.FullName.Substring($Root.TrimEnd('\').Length + 1)
+    }
+)
+if ($missingCopyright.Count -gt 0) {
+    throw "Source files missing the Fab copyright notice: $($missingCopyright -join ', ')"
+}
+
+$releaseConfig = Get-Content -LiteralPath (Join-Path $Root 'Config/DefaultSeeleScatterRegions.ini') -Raw
+if ($releaseConfig -notmatch "(?m)^ReleaseVersion=$([regex]::Escape($ExpectedVersionName))\r?$") {
+    throw "Config/DefaultSeeleScatterRegions.ini must declare ReleaseVersion=$ExpectedVersionName"
+}
+if ($releaseConfig -notmatch "(?m)^SupportedEngineVersion=$([regex]::Escape($ExpectedEngineVersion))\r?$") {
+    throw "Config/DefaultSeeleScatterRegions.ini must declare SupportedEngineVersion=$ExpectedEngineVersion"
 }
 
 $filterPath = Join-Path $Root 'Config/FilterPlugin.ini'

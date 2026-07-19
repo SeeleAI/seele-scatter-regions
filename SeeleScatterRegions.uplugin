@@ -1,10 +1,10 @@
 {
   "FileVersion": 3,
-  "Version": 1,
-  "VersionName": "0.1.0",
-  "EngineVersion": "5.5.0",
+  "Version": 2,
+  "VersionName": "0.1.1",
+  "EngineVersion": "5.8.0",
   "FriendlyName": "Seele Scatter Regions",
-  "Description": "Open-source procedural world-building for Unreal Engine 5.5: generate seeded villages, farms, and cemeteries from reusable Static Mesh recipes.",
+  "Description": "Open-source procedural world-building for Unreal Engine 5.8: generate seeded villages, farms, and cemeteries from reusable Static Mesh recipes.",
   "Category": "Procedural",
   "CreatedBy": "Seele AI",
   "CreatedByURL": "https://github.com/SeeleAI",
@@ -18,12 +18,18 @@
     {
       "Name": "SeeleScatterRegions",
       "Type": "Runtime",
-      "LoadingPhase": "Default"
+      "LoadingPhase": "Default",
+      "PlatformAllowList": [
+        "Win64"
+      ]
     },
     {
       "Name": "SeeleScatterRegionsEditor",
       "Type": "Editor",
-      "LoadingPhase": "Default"
+      "LoadingPhase": "Default",
+      "PlatformAllowList": [
+        "Win64"
+      ]
     }
   ]
 }
