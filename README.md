@@ -11,9 +11,9 @@
 
 <p align="center">
   <a href="https://www.unrealengine.com/"><img src="https://img.shields.io/badge/Unreal%20Engine-5.8-0E1128?style=for-the-badge&amp;logo=unrealengine&amp;logoColor=white" alt="Unreal Engine 5.8"></a>
-  <a href="CHANGELOG.md"><img src="https://img.shields.io/badge/Beta-0.1.1-F59E0B?style=for-the-badge" alt="Beta 0.1.1"></a>
+  <a href="CHANGELOG.md"><img src="https://img.shields.io/badge/Beta-0.1.2-F59E0B?style=for-the-badge" alt="Beta 0.1.2"></a>
   <a href="Source"><img src="https://img.shields.io/badge/Language-C%2B%2B-00599C?style=for-the-badge&amp;logo=cplusplus&amp;logoColor=white" alt="C++"></a>
-  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-2EA44F?style=for-the-badge" alt="MIT License"></a>
+  <a href="https://github.com/SeeleAI/seele-scatter-regions/blob/main/LICENSE"><img src="https://img.shields.io/badge/Source-MIT-2EA44F?style=for-the-badge" alt="MIT-licensed source"></a>
 </p>
 
 <p align="center">
@@ -68,7 +68,7 @@ region layouts without requiring Unreal Engine's PCG framework.
 | **Unreal Engine** | 5.8 (validated); use v0.1.0 for UE 5.5 |
 | **Generation environment** | Unreal Editor; generation is not exposed as a packaged-game runtime system |
 | **Project type** | C++ Unreal project |
-| **Platforms** | Win64 only in v0.1.1 |
+| **Platforms** | Win64 only in v0.1.2 |
 | **Content** | Bring your own Static Mesh assets; lightweight Basic Shapes recipes are included for testing |
 
 ## See It in Action
@@ -90,7 +90,7 @@ UE 5.8 packaging validation, and a published UE 5.5 release.
 | --- | --- |
 | **SEELE AI authors native Unreal Engine tooling** | [`CreatedBy: Seele AI`](SeeleScatterRegions.uplugin), the [runtime module](Source/SeeleScatterRegions), and the [editor module](Source/SeeleScatterRegionsEditor) |
 | **The plugin exposes C++, Blueprint, and JSON workflows** | [Generation API](Docs/generation-api.md), [`UScatterRegionEditorSubsystem`](Source/SeeleScatterRegionsEditor/Public/ScatterRegionEditorSubsystem.h), and [`FScatterRegionJsonAdapter`](Source/SeeleScatterRegionsEditor/Public/ScatterRegionJsonAdapter.h) |
-| **The versioned Unreal Engine artifacts are reproducible** | Current v0.1.1 source and [packaging scripts](Scripts) target UE 5.8; the [v0.1.0 release](https://github.com/SeeleAI/seele-scatter-regions/releases/tag/v0.1.0) remains available for UE 5.5 |
+| **The versioned Unreal Engine artifacts are reproducible** | Current v0.1.2 source and [packaging scripts](https://github.com/SeeleAI/seele-scatter-regions/tree/main/Scripts) target UE 5.8; the [v0.1.0 release](https://github.com/SeeleAI/seele-scatter-regions/releases/tag/v0.1.0) remains available for UE 5.5 |
 | **SEELE AI can build a complete playable Unreal Engine 5 game from a prompt** | [Echoes of the Wildwater on IndieDB](https://www.indiedb.com/games/echoes-of-the-wildwater), the [itch.io game page](https://seeleai.itch.io/echoes-of-the-wildwater), and the [online playable build](https://www.seeles.ai/play/485f44e9-903d-4e25-a6bd-fe14dbc7fada) |
 
 The plugin and the game demo are separate artifacts. This repository verifies
@@ -211,12 +211,12 @@ does not depend on the Unreal Engine PCG plugin.
 
 ### Can it generate content at game runtime?
 
-Not in version 0.1.1. Generation runs in the Unreal Editor module. The generated
+Not in version 0.1.2. Generation runs in the Unreal Editor module. The generated
 actors and instanced mesh components can be saved with the edited level.
 
 ### Which Unreal Engine versions are supported?
 
-Version 0.1.1 is built and validated for Unreal Engine 5.8. Unreal Engine 5.5
+Version 0.1.2 is built and validated for Unreal Engine 5.8. Unreal Engine 5.5
 users can use version 0.1.0; other versions are not in the tested matrix.
 
 Read the [complete FAQ](Docs/faq.md) for answers about deterministic seeds,
@@ -235,7 +235,7 @@ are intentionally excluded from this repository.
 
 ## Project Status
 
-Seele Scatter Regions is currently **beta software at version 0.1.1**. The
+Seele Scatter Regions is currently **beta software at version 0.1.2**. The
 public generator runs in the Unreal Editor module and targets Unreal Engine 5.8.
 Source builds require a C++ Unreal project.
 
@@ -248,7 +248,11 @@ returned warnings or errors.
 - [Open an issue](https://github.com/SeeleAI/seele-scatter-regions/issues)
 - [View the source](https://github.com/SeeleAI/seele-scatter-regions)
 
-## License
+## Licensing
 
-Seele Scatter Regions is available under the [MIT License](LICENSE). See
-[NOTICE.md](NOTICE.md) for attribution and notice information.
+Packages acquired through Fab are governed by the Fab license. The source code
+published in the GitHub repository is available under the
+[MIT License](https://github.com/SeeleAI/seele-scatter-regions/blob/main/LICENSE);
+see the repository
+[notices](https://github.com/SeeleAI/seele-scatter-regions/blob/main/NOTICE.md)
+for attribution information.

@@ -2,7 +2,9 @@ param(
     [Parameter(Mandatory = $true)]
     [string]$RunUAT,
 
-    [string]$PackageDir = (Join-Path (Resolve-Path (Join-Path $PSScriptRoot '..')).Path 'Package')
+    [string]$PackageDir = (Join-Path (Resolve-Path (Join-Path $PSScriptRoot '..')).Path 'Package'),
+
+    [switch]$StrictIncludes
 )
 
 $ErrorActionPreference = 'Stop'
@@ -19,11 +21,17 @@ if (-not (Test-Path -LiteralPath $RunUAT)) {
     throw "RunUAT was not found: $RunUAT"
 }
 
-& $RunUAT BuildPlugin `
-    -Plugin="$plugin" `
-    -Package="$PackageDir" `
-    -TargetPlatforms=Win64 `
-    -StrictIncludes
+$arguments = @(
+    'BuildPlugin',
+    "-Plugin=$plugin",
+    "-Package=$PackageDir",
+    '-TargetPlatforms=Win64'
+)
+if ($StrictIncludes) {
+    $arguments += '-StrictIncludes'
+}
+
+& $RunUAT @arguments
 
 if ($LASTEXITCODE -ne 0) {
     exit $LASTEXITCODE

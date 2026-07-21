@@ -1,7 +1,7 @@
 param(
     [string]$Root = (Resolve-Path (Join-Path $PSScriptRoot '..')).Path,
 
-    [string]$ExpectedVersionName = '0.1.1',
+    [string]$ExpectedVersionName = '0.1.2',
 
     [string]$ExpectedEngineVersion = '5.8.0',
 
@@ -45,7 +45,6 @@ $requiredFiles = @(
     'Docs/generation-api.md',
     'Docs/faq.md',
     'Docs/faq.zh-CN.md',
-    'Docs/migration-from-irregular.md',
     'Content/Recipes/DA_Village_Demo.uasset',
     'Content/Recipes/DA_Farm_Demo.uasset',
     'Content/Recipes/DA_Cemetery_Demo.uasset',
@@ -114,22 +113,77 @@ if ($releaseConfig -notmatch "(?m)^SupportedEngineVersion=$([regex]::Escape($Exp
 }
 
 $filterPath = Join-Path $Root 'Config/FilterPlugin.ini'
-$filterContent = Get-Content -LiteralPath $filterPath -Raw
+$filterEntries = @(
+    Get-Content -LiteralPath $filterPath | ForEach-Object { $_.Trim() } | Where-Object {
+        $_ -and -not $_.StartsWith(';') -and -not $_.StartsWith('#') -and -not $_.StartsWith('[')
+    }
+)
 $requiredFilterEntries = @(
-    '/README*.md',
-    '/LICENSE',
-    '/NOTICE.md',
+    '/README.md',
+    '/README.zh-CN.md',
     '/CHANGELOG.md',
-    '/Config/...',
-    '/Docs/*.md',
-    '/Docs/images/...',
+    '/Config/DefaultSeeleScatterRegions.ini',
+    '/Config/FilterPlugin.ini',
+    '/Docs/faq.md',
+    '/Docs/faq.zh-CN.md',
+    '/Docs/generation-api.md',
+    '/Docs/quickstart.md',
+    '/Docs/recipe-assets.md',
+    '/Docs/images/seele-scatter-regions-banner.png',
     '/Samples/...'
 )
 $missingFilterEntries = @(
-    $requiredFilterEntries | Where-Object { $filterContent -notmatch [regex]::Escape($_) }
+    $requiredFilterEntries | Where-Object { $_ -notin $filterEntries }
 )
 if ($missingFilterEntries.Count -gt 0) {
     throw "Config/FilterPlugin.ini is missing release entries: $($missingFilterEntries -join ', ')"
+}
+
+$forbiddenFilterEntries = @(
+    '/LICENSE',
+    '/NOTICE.md',
+    '/Config/...',
+    '/Docs/*.md',
+    '/Docs/images/...'
+)
+$presentForbiddenFilterEntries = @(
+    $forbiddenFilterEntries | Where-Object { $_ -in $filterEntries }
+)
+if ($presentForbiddenFilterEntries.Count -gt 0) {
+    throw "Config/FilterPlugin.ini contains forbidden or overly broad Fab entries: $($presentForbiddenFilterEntries -join ', ')"
+}
+
+$unexpectedFilterEntries = @(
+    $filterEntries | Where-Object { $_ -notin $requiredFilterEntries }
+)
+if ($unexpectedFilterEntries.Count -gt 0) {
+    throw "Config/FilterPlugin.ini contains undeclared release entries: $($unexpectedFilterEntries -join ', ')"
+}
+
+foreach ($entry in $filterEntries) {
+    $relativePath = $entry.TrimStart('/').Replace('/', [System.IO.Path]::DirectorySeparatorChar)
+    if ($relativePath.EndsWith([System.IO.Path]::DirectorySeparatorChar + '...')) {
+        $relativePath = $relativePath.Substring(0, $relativePath.Length - 4)
+        $directory = Join-Path $Root $relativePath
+        if (-not (Test-Path -LiteralPath $directory -PathType Container) -or
+            -not (Get-ChildItem -LiteralPath $directory -Recurse -File -ErrorAction SilentlyContinue)) {
+            throw "Config/FilterPlugin.ini directory entry matches no files: $entry"
+        }
+    }
+    elseif (-not (Test-Path -LiteralPath (Join-Path $Root $relativePath) -PathType Leaf)) {
+        throw "Config/FilterPlugin.ini file entry does not exist: $entry"
+    }
+}
+
+$removedReleaseFiles = @(
+    'Docs/migration-from-irregular.md',
+    'Docs/images/jiangnan-scatter-region-preview.png'
+)
+$presentRemovedReleaseFiles = @(
+    $removedReleaseFiles | Where-Object { Test-Path -LiteralPath (Join-Path $Root $_) }
+)
+if ($presentRemovedReleaseFiles.Count -gt 0) {
+    throw "Unused release files must be removed: $($presentRemovedReleaseFiles -join ', ')"
 }
 
 $blockedDirectories = @(

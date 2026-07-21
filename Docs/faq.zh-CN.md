@@ -11,7 +11,7 @@ Static Mesh 以及它们的放置密度。
 
 ## 支持哪些 Unreal Engine 版本？
 
-0.1.1 版本以 Unreal Engine 5.8 为目标版本，并已在该版本完成验证。Unreal
+0.1.2 版本以 Unreal Engine 5.8 为目标版本，并已在该版本完成验证。Unreal
 Engine 5.5 用户可使用 0.1.0；其他版本目前不在已验证兼容范围内。
 
 ## 是否依赖 Unreal Engine 的 PCG 框架？
@@ -21,7 +21,7 @@ Engine 5.5 用户可使用 0.1.0；其他版本目前不在已验证兼容范围
 
 ## 能否在游戏运行时生成？
 
-0.1.1 暂不支持。公开生成器位于 Unreal Editor 模块中。生成的 Actor 和
+0.1.2 暂不支持。公开生成器位于 Unreal Editor 模块中。生成的 Actor 和
 `UInstancedStaticMeshComponent` 结果可以随关卡保存，但仓库当前没有提供
 打包游戏运行时生成接口。
 
@@ -55,14 +55,17 @@ Engine Basic Shapes 的轻量配方用于安装验证；之后可以复制配方
 
 ## 当前有哪些区域类型？
 
-0.1.1 支持 `Village`、`Farm` 和 `Cemetery`。欢迎在
+0.1.2 支持 `Village`、`Farm` 和 `Cemetery`。欢迎在
 [GitHub Discussions](https://github.com/SeeleAI/seele-scatter-regions/discussions)
 提出新的区域需求和方案。
 
 ## 插件是否免费开源？
 
-是。源码采用 [MIT License](../LICENSE)，归属及声明信息见
-[NOTICE.md](../NOTICE.md)。
+是。GitHub 仓库中发布的源代码采用
+[MIT License](https://github.com/SeeleAI/seele-scatter-regions/blob/main/LICENSE)，
+归属及声明信息见仓库中的
+[NOTICE.md](https://github.com/SeeleAI/seele-scatter-regions/blob/main/NOTICE.md)。
+通过 Fab 获取的软件包适用 Fab 许可证。
 
 ## 在哪里报告问题？
 

@@ -12,7 +12,7 @@ how densely to place them.
 
 ## Which Unreal Engine versions are supported?
 
-Version 0.1.1 targets and is validated with Unreal Engine 5.8. Unreal Engine
+Version 0.1.2 targets and is validated with Unreal Engine 5.8. Unreal Engine
 5.5 users can use version 0.1.0; other versions have not been validated.
 
 ## Does it require Unreal Engine's PCG framework?
@@ -23,7 +23,7 @@ describes the workflow, not a dependency on the PCG framework.
 
 ## Can it generate content at game runtime?
 
-Not in version 0.1.1. The public generator belongs to the Unreal Editor module.
+Not in version 0.1.2. The public generator belongs to the Unreal Editor module.
 Generated actors and `UInstancedStaticMeshComponent` output can be saved with
 the edited level, but the repository does not expose generation as a packaged-
 game runtime feature.
@@ -60,13 +60,16 @@ you can test installation, then duplicate a recipe and assign your own assets.
 
 ## What regions are available?
 
-Version 0.1.1 supports `Village`, `Farm`, and `Cemetery`. Region requests and
+Version 0.1.2 supports `Village`, `Farm`, and `Cemetery`. Region requests and
 proposals are welcome in [GitHub Discussions](https://github.com/SeeleAI/seele-scatter-regions/discussions).
 
 ## Is the plugin free and open source?
 
-Yes. The source is available under the [MIT License](../LICENSE). Review
-[NOTICE.md](../NOTICE.md) for attribution and notice information.
+Yes. The source published in the GitHub repository is available under the
+[MIT License](https://github.com/SeeleAI/seele-scatter-regions/blob/main/LICENSE),
+with attribution information in the repository
+[notices](https://github.com/SeeleAI/seele-scatter-regions/blob/main/NOTICE.md).
+Packages acquired through Fab are governed by the Fab license.
 
 ## Where should I report a problem?
 

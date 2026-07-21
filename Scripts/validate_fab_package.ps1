@@ -4,7 +4,7 @@ param(
 
     [string]$ZipPath,
 
-    [string]$ExpectedVersionName = '0.1.1',
+    [string]$ExpectedVersionName = '0.1.2',
 
     [string]$ExpectedEngineVersion = '5.8.0',
 
@@ -17,15 +17,25 @@ $PluginRoot = (Resolve-Path -LiteralPath $PluginRoot).Path
 $requiredFiles = @(
     'SeeleScatterRegions.uplugin',
     'Config/DefaultSeeleScatterRegions.ini',
+    'Config/FilterPlugin.ini',
     'Content/Recipes/DA_Village_Demo.uasset',
     'Content/Recipes/DA_Farm_Demo.uasset',
     'Content/Recipes/DA_Cemetery_Demo.uasset',
     'Resources/Icon128.png',
     'Source/SeeleScatterRegions/SeeleScatterRegions.Build.cs',
     'Source/SeeleScatterRegionsEditor/SeeleScatterRegionsEditor.Build.cs',
+    'Docs/faq.md',
+    'Docs/faq.zh-CN.md',
+    'Docs/generation-api.md',
     'Docs/quickstart.md',
+    'Docs/recipe-assets.md',
+    'Docs/images/seele-scatter-regions-banner.png',
     'Samples/CommandPayloads/village.json',
-    'README.md'
+    'Samples/CommandPayloads/farm.json',
+    'Samples/CommandPayloads/cemetery.json',
+    'README.md',
+    'README.zh-CN.md',
+    'CHANGELOG.md'
 )
 
 $missing = @(
@@ -78,7 +88,11 @@ $blockedPaths = @(
     'Saved',
     'HostProject',
     'Docs/superpowers',
-    'LICENSE'
+    'Docs/plans',
+    'LICENSE',
+    'NOTICE.md',
+    'Docs/migration-from-irregular.md',
+    'Docs/images/jiangnan-scatter-region-preview.png'
 )
 $presentBlocked = @(
     $blockedPaths | Where-Object { Test-Path -LiteralPath (Join-Path $PluginRoot $_) }
@@ -97,6 +111,81 @@ $generatedFiles = @(
 )
 if ($generatedFiles.Count -gt 0) {
     throw "Fab plugin package contains generated files: $($generatedFiles -join ', ')"
+}
+
+$filterPath = Join-Path $PluginRoot 'Config/FilterPlugin.ini'
+$filterEntries = @(
+    Get-Content -LiteralPath $filterPath | ForEach-Object { $_.Trim() } | Where-Object {
+        $_ -and -not $_.StartsWith(';') -and -not $_.StartsWith('#') -and -not $_.StartsWith('[')
+    }
+)
+$requiredFilterEntries = @(
+    '/README.md',
+    '/README.zh-CN.md',
+    '/CHANGELOG.md',
+    '/Config/DefaultSeeleScatterRegions.ini',
+    '/Config/FilterPlugin.ini',
+    '/Docs/faq.md',
+    '/Docs/faq.zh-CN.md',
+    '/Docs/generation-api.md',
+    '/Docs/quickstart.md',
+    '/Docs/recipe-assets.md',
+    '/Docs/images/seele-scatter-regions-banner.png',
+    '/Samples/...'
+)
+$filterIssues = @()
+$filterIssues += @(
+    $requiredFilterEntries | Where-Object { $_ -notin $filterEntries } | ForEach-Object {
+        "missing entry $_"
+    }
+)
+$filterIssues += @(
+    $filterEntries | Where-Object { $_ -notin $requiredFilterEntries } | ForEach-Object {
+        "unexpected entry $_"
+    }
+)
+foreach ($entry in $filterEntries) {
+    $relativePath = $entry.TrimStart('/').Replace('/', [System.IO.Path]::DirectorySeparatorChar)
+    if ($relativePath.EndsWith([System.IO.Path]::DirectorySeparatorChar + '...')) {
+        $relativePath = $relativePath.Substring(0, $relativePath.Length - 4)
+        $directory = Join-Path $PluginRoot $relativePath
+        if (-not (Test-Path -LiteralPath $directory -PathType Container) -or
+            -not (Get-ChildItem -LiteralPath $directory -Recurse -File -ErrorAction SilentlyContinue)) {
+            $filterIssues += "directory entry matches no files: $entry"
+        }
+    }
+    elseif (-not (Test-Path -LiteralPath (Join-Path $PluginRoot $relativePath) -PathType Leaf)) {
+        $filterIssues += "file entry does not exist: $entry"
+    }
+}
+if ($filterIssues.Count -gt 0) {
+    throw "Config/FilterPlugin.ini is invalid for Fab: $($filterIssues -join '; ')"
+}
+
+$brokenMarkdownLinks = @()
+$markdownLinkPattern = '(?:\[[^\]]*\]\(([^)]+)\)|<(?:a|img)\b[^>]+(?:href|src)="([^"]+)")'
+foreach ($markdownFile in Get-ChildItem -LiteralPath $PluginRoot -Recurse -File -Filter '*.md') {
+    $content = Get-Content -LiteralPath $markdownFile.FullName -Raw
+    foreach ($match in [regex]::Matches($content, $markdownLinkPattern, [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)) {
+        $target = if ($match.Groups[1].Success) { $match.Groups[1].Value } else { $match.Groups[2].Value }
+        $target = $target.Trim().Trim('<', '>')
+        if (-not $target -or $target -match '^(?:https?://|mailto:|#)') {
+            continue
+        }
+        $targetPath = ($target -split '[#?]', 2)[0]
+        if ($targetPath -match '\s+["'']') {
+            $targetPath = ($targetPath -split '\s+', 2)[0]
+        }
+        $resolvedTarget = [System.IO.Path]::GetFullPath((Join-Path $markdownFile.DirectoryName $targetPath))
+        if (-not $resolvedTarget.StartsWith($PluginRoot + [System.IO.Path]::DirectorySeparatorChar, [System.StringComparison]::OrdinalIgnoreCase) -or
+            -not (Test-Path -LiteralPath $resolvedTarget)) {
+            $relativeMarkdown = $markdownFile.FullName.Substring($PluginRoot.TrimEnd('\').Length + 1)
+            $brokenMarkdownLinks += "$relativeMarkdown -> $target"
+        }
+    }
+}
+if ($brokenMarkdownLinks.Count -gt 0) {
+    throw "Fab plugin package contains broken relative Markdown links: $($brokenMarkdownLinks -join '; ')"
 }
 
 if ($ZipPath) {
@@ -127,8 +216,12 @@ if ($ZipPath) {
 
         $blockedZipEntries = @($entries | Where-Object {
             $_.StartsWith('SeeleScatterRegions/Docs/superpowers/', [System.StringComparison]::OrdinalIgnoreCase) -or
+            $_.StartsWith('SeeleScatterRegions/Docs/plans/', [System.StringComparison]::OrdinalIgnoreCase) -or
             $_ -match '^SeeleScatterRegions/(Binaries|Build|Intermediate|Saved)/' -or
-            $_ -ieq 'SeeleScatterRegions/LICENSE'
+            $_ -ieq 'SeeleScatterRegions/LICENSE' -or
+            $_ -ieq 'SeeleScatterRegions/NOTICE.md' -or
+            $_ -ieq 'SeeleScatterRegions/Docs/migration-from-irregular.md' -or
+            $_ -ieq 'SeeleScatterRegions/Docs/images/jiangnan-scatter-region-preview.png'
         })
         if ($blockedZipEntries.Count -gt 0) {
             throw "Fab ZIP contains files rejected by Fab review: $($blockedZipEntries -join ', ')"

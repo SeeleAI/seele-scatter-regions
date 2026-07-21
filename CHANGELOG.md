@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.1.2
+
+- Separates the MIT-licensed GitHub source boundary from Fab package licensing.
+- Removes unused migration documentation and an unreferenced preview image.
+- Replaces dangling and broad `FilterPlugin.ini` entries with an explicit Fab
+  release file list.
+- Extends release validation to reject repository license files, unused release
+  content, invalid filter targets, and broken relative Markdown links in Fab
+  packages.
+
 ## 0.1.1
 
 - Improves GitHub discovery with a search-intent-focused README title,

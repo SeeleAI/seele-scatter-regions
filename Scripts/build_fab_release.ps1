@@ -1,5 +1,5 @@
 param(
-    [string]$ReleaseVersion = '0.1.1',
+    [string]$ReleaseVersion = '0.1.2',
 
     [string]$EngineVersion = '5.8.0',
 
@@ -74,7 +74,8 @@ $fabExcludedPaths = @(
     'Build',
     'Intermediate',
     'Saved',
-    'LICENSE'
+    'LICENSE',
+    'NOTICE.md'
 )
 foreach ($relativePath in $fabExcludedPaths) {
     $candidate = Join-Path $stagedPlugin $relativePath

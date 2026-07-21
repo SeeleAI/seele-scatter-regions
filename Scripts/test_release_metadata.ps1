@@ -1,6 +1,6 @@
 param(
     [string]$Root = (Resolve-Path (Join-Path $PSScriptRoot '..')).Path,
-    [string]$ExpectedVersionName = '0.1.1',
+    [string]$ExpectedVersionName = '0.1.2',
     [string]$ExpectedEngineVersion = '5.8.0',
     [string]$ExpectedPlatform = 'Win64'
 )
