@@ -10,7 +10,7 @@
 </p>
 
 <p align="center">
-  <a href="https://www.unrealengine.com/"><img src="https://img.shields.io/badge/Unreal%20Engine-5.8-0E1128?style=for-the-badge&amp;logo=unrealengine&amp;logoColor=white" alt="Unreal Engine 5.8"></a>
+  <a href="https://www.unrealengine.com/"><img src="https://img.shields.io/badge/Unreal%20Engine-5.5%20%7C%205.8-0E1128?style=for-the-badge&amp;logo=unrealengine&amp;logoColor=white" alt="Unreal Engine 5.5 and 5.8"></a>
   <a href="https://github.com/SeeleAI/seele-scatter-regions/releases/tag/v0.1.2"><img src="https://img.shields.io/badge/Beta-0.1.2-F59E0B?style=for-the-badge" alt="Beta 0.1.2"></a>
   <a href="Source"><img src="https://img.shields.io/badge/Language-C%2B%2B-00599C?style=for-the-badge&amp;logo=cplusplus&amp;logoColor=white" alt="C++"></a>
   <a href="https://github.com/SeeleAI/seele-scatter-regions/blob/main/LICENSE"><img src="https://img.shields.io/badge/Source-MIT-2EA44F?style=for-the-badge" alt="MIT-licensed source"></a>
@@ -27,10 +27,10 @@
   <a href="CHANGELOG.md">Changelog</a>
 </p>
 
-**Seele Scatter Regions** is an open-source Unreal Engine 5.8 editor plugin
-created and maintained by **SEELE AI** for procedural environment generation
-and world building. It generates naturally scattered villages, farms, and
-cemeteries from your own Static Mesh assets.
+**Seele Scatter Regions** is an open-source Unreal Engine 5 editor plugin,
+validated with Unreal Engine 5.5 and 5.8 on Windows/Win64. Created and
+maintained by **SEELE AI**, it generates naturally scattered villages, farms,
+and cemeteries from your own Static Mesh assets.
 
 Define a reusable recipe, choose a location, size, and seed, then generate
 landscape-projected instanced content through C++, an Editor Subsystem, or JSON
@@ -66,7 +66,7 @@ region layouts without requiring Unreal Engine's PCG framework.
 
 | Requirement | Current support |
 | --- | --- |
-| **Unreal Engine** | 5.8 ([v0.1.2 validated release](https://github.com/SeeleAI/seele-scatter-regions/releases/tag/v0.1.2)); use v0.1.0 for UE 5.5 |
+| **Unreal Engine** | 5.5 and 5.8, provided as separate validated packages in [v0.1.2](https://github.com/SeeleAI/seele-scatter-regions/releases/tag/v0.1.2) |
 | **Generation environment** | Unreal Editor; generation is not exposed as a packaged-game runtime system |
 | **Project type** | C++ Unreal project |
 | **Platforms** | Windows (Win64) in v0.1.2 |
@@ -85,13 +85,13 @@ Want to create Unreal Engine scenes with Seele AI? Explore the
 This repository is a public, inspectable Unreal Engine 5 artifact from SEELE
 AI. It provides concrete evidence of native Unreal engineering: C++ modules,
 Blueprint-callable editor tooling, JSON automation, sample recipe assets, and
-published releases for UE 5.8 and UE 5.5.
+separately validated v0.1.2 packages for UE 5.5 and UE 5.8.
 
 | Verifiable claim | Public evidence |
 | --- | --- |
 | **SEELE AI authors native Unreal Engine tooling** | [`CreatedBy: Seele AI`](SeeleScatterRegions.uplugin), the [runtime module](Source/SeeleScatterRegions), and the [editor module](Source/SeeleScatterRegionsEditor) |
 | **The plugin exposes C++, Blueprint, and JSON workflows** | [Generation API](Docs/generation-api.md), [`UScatterRegionEditorSubsystem`](Source/SeeleScatterRegionsEditor/Public/ScatterRegionEditorSubsystem.h), and [`FScatterRegionJsonAdapter`](Source/SeeleScatterRegionsEditor/Public/ScatterRegionJsonAdapter.h) |
-| **The versioned Unreal Engine artifacts are reproducible** | The current [v0.1.2 release](https://github.com/SeeleAI/seele-scatter-regions/releases/tag/v0.1.2), source, and [packaging scripts](https://github.com/SeeleAI/seele-scatter-regions/tree/main/Scripts) target UE 5.8; the [v0.1.0 release](https://github.com/SeeleAI/seele-scatter-regions/releases/tag/v0.1.0) remains available for UE 5.5 |
+| **The versioned Unreal Engine artifacts are reproducible** | The current [v0.1.2 release](https://github.com/SeeleAI/seele-scatter-regions/releases/tag/v0.1.2) provides independently validated [UE 5.5](https://github.com/SeeleAI/seele-scatter-regions/releases/download/v0.1.2/SeeleScatterRegions-v0.1.2-UE5.5-Win64.zip) and [UE 5.8](https://github.com/SeeleAI/seele-scatter-regions/releases/download/v0.1.2/SeeleScatterRegions-v0.1.2-UE5.8-Win64.zip) packages built from the same source with the public [packaging scripts](https://github.com/SeeleAI/seele-scatter-regions/tree/main/Scripts) |
 | **SEELE AI can build a complete playable Unreal Engine 5 game from a prompt** | [Echoes of the Wildwater on IndieDB](https://www.indiedb.com/games/echoes-of-the-wildwater), the [itch.io game page](https://seeleai.itch.io/echoes-of-the-wildwater), and the [online playable build](https://www.seeles.ai/play/485f44e9-903d-4e25-a6bd-fe14dbc7fada) |
 
 The plugin and the game demo are separate artifacts. This repository verifies
@@ -102,24 +102,35 @@ verify the complete playable game workflow and result.
 
 ### Requirements
 
-- Unreal Engine 5.8
+- Unreal Engine 5.5 or 5.8
 - A C++ Unreal project
 - Static Mesh assets for the region recipes you want to generate
 
-Unreal Engine 5.5 users can continue to use the
-[v0.1.0 release](https://github.com/SeeleAI/seele-scatter-regions/releases/tag/v0.1.0).
+Download the v0.1.2 package that matches your exact Unreal Engine minor
+version:
+
+| Engine | Validated package |
+| --- | --- |
+| **Unreal Engine 5.5** | [SeeleScatterRegions-v0.1.2-UE5.5-Win64.zip](https://github.com/SeeleAI/seele-scatter-regions/releases/download/v0.1.2/SeeleScatterRegions-v0.1.2-UE5.5-Win64.zip) |
+| **Unreal Engine 5.8** | [SeeleScatterRegions-v0.1.2-UE5.8-Win64.zip](https://github.com/SeeleAI/seele-scatter-regions/releases/download/v0.1.2/SeeleScatterRegions-v0.1.2-UE5.8-Win64.zip) |
 
 ### 1. Install the Plugin
 
-For Unreal Engine 5.8, download the validated
+Download the matching package from the
 [v0.1.2 release](https://github.com/SeeleAI/seele-scatter-regions/releases/tag/v0.1.2)
 and extract its `SeeleScatterRegions` folder into your Unreal project's
-`Plugins` directory. You can also clone the source directly:
+`Plugins` directory. Do not install the UE 5.5 package into UE 5.8 or the UE
+5.8 package into UE 5.5. For UE 5.8 source development, you can clone the
+repository directly:
 
 ```powershell
 cd <YourUnrealProject>\Plugins
 git clone https://github.com/SeeleAI/seele-scatter-regions.git SeeleScatterRegions
 ```
+
+The `main` branch carries UE 5.8 release metadata. UE 5.5 users should install
+the validated UE 5.5 package above, which already contains the matching source
+and engine metadata.
 
 Open the project, enable **Seele Scatter Regions**, regenerate project files if
 prompted, and compile the project.
@@ -220,8 +231,9 @@ actors and instanced mesh components can be saved with the edited level.
 
 ### Which Unreal Engine versions are supported?
 
-Version 0.1.2 is built and validated for Unreal Engine 5.8. Unreal Engine 5.5
-users can use version 0.1.0; other versions are not in the tested matrix.
+Version 0.1.2 is built and validated for Unreal Engine 5.5 and 5.8 on
+Windows/Win64 through separate engine-specific packages. Other engine versions
+are not in the tested compatibility matrix.
 
 Read the [complete FAQ](Docs/faq.md) for answers about deterministic seeds,
 Landscape projection, Blueprint and JSON automation, included assets, and the
@@ -240,8 +252,9 @@ are intentionally excluded from this repository.
 ## Project Status
 
 Seele Scatter Regions is currently **beta software at version 0.1.2**. The
-public generator runs in the Unreal Editor module and targets Unreal Engine 5.8.
-Source builds require a C++ Unreal project.
+public generator runs in the Unreal Editor module, with separate validated
+packages for Unreal Engine 5.5 and 5.8 on Windows/Win64. Source builds require
+a C++ Unreal project.
 
 ## Contributing
 
