@@ -11,13 +11,14 @@
 
 <p align="center">
   <a href="https://www.unrealengine.com/"><img src="https://img.shields.io/badge/Unreal%20Engine-5.8-0E1128?style=for-the-badge&amp;logo=unrealengine&amp;logoColor=white" alt="Unreal Engine 5.8"></a>
-  <a href="CHANGELOG.md"><img src="https://img.shields.io/badge/Beta-0.1.2-F59E0B?style=for-the-badge" alt="Beta 0.1.2"></a>
+  <a href="https://github.com/SeeleAI/seele-scatter-regions/releases/tag/v0.1.2"><img src="https://img.shields.io/badge/Beta-0.1.2-F59E0B?style=for-the-badge" alt="Beta 0.1.2"></a>
   <a href="Source"><img src="https://img.shields.io/badge/Language-C%2B%2B-00599C?style=for-the-badge&amp;logo=cplusplus&amp;logoColor=white" alt="C++"></a>
   <a href="https://github.com/SeeleAI/seele-scatter-regions/blob/main/LICENSE"><img src="https://img.shields.io/badge/Source-MIT-2EA44F?style=for-the-badge" alt="MIT-licensed source"></a>
 </p>
 
 <p align="center">
   <a href="https://www.seeles.ai/features/create/unreal-game">Try Seele</a> &middot;
+  <a href="https://github.com/SeeleAI/seele-scatter-regions/releases/tag/v0.1.2">Release v0.1.2</a> &middot;
   <a href="Docs/quickstart.md">Quickstart</a> &middot;
   <a href="Docs/generation-api.md">Generation API</a> &middot;
   <a href="Docs/recipe-assets.md">Recipe Assets</a> &middot;
@@ -65,10 +66,10 @@ region layouts without requiring Unreal Engine's PCG framework.
 
 | Requirement | Current support |
 | --- | --- |
-| **Unreal Engine** | 5.8 (validated); use v0.1.0 for UE 5.5 |
+| **Unreal Engine** | 5.8 ([v0.1.2 validated release](https://github.com/SeeleAI/seele-scatter-regions/releases/tag/v0.1.2)); use v0.1.0 for UE 5.5 |
 | **Generation environment** | Unreal Editor; generation is not exposed as a packaged-game runtime system |
 | **Project type** | C++ Unreal project |
-| **Platforms** | Win64 only in v0.1.2 |
+| **Platforms** | Windows (Win64) in v0.1.2 |
 | **Content** | Bring your own Static Mesh assets; lightweight Basic Shapes recipes are included for testing |
 
 ## See It in Action
@@ -83,14 +84,14 @@ Want to create Unreal Engine scenes with Seele AI? Explore the
 
 This repository is a public, inspectable Unreal Engine 5 artifact from SEELE
 AI. It provides concrete evidence of native Unreal engineering: C++ modules,
-Blueprint-callable editor tooling, JSON automation, sample recipe assets,
-UE 5.8 packaging validation, and a published UE 5.5 release.
+Blueprint-callable editor tooling, JSON automation, sample recipe assets, and
+published releases for UE 5.8 and UE 5.5.
 
 | Verifiable claim | Public evidence |
 | --- | --- |
 | **SEELE AI authors native Unreal Engine tooling** | [`CreatedBy: Seele AI`](SeeleScatterRegions.uplugin), the [runtime module](Source/SeeleScatterRegions), and the [editor module](Source/SeeleScatterRegionsEditor) |
 | **The plugin exposes C++, Blueprint, and JSON workflows** | [Generation API](Docs/generation-api.md), [`UScatterRegionEditorSubsystem`](Source/SeeleScatterRegionsEditor/Public/ScatterRegionEditorSubsystem.h), and [`FScatterRegionJsonAdapter`](Source/SeeleScatterRegionsEditor/Public/ScatterRegionJsonAdapter.h) |
-| **The versioned Unreal Engine artifacts are reproducible** | Current v0.1.2 source and [packaging scripts](https://github.com/SeeleAI/seele-scatter-regions/tree/main/Scripts) target UE 5.8; the [v0.1.0 release](https://github.com/SeeleAI/seele-scatter-regions/releases/tag/v0.1.0) remains available for UE 5.5 |
+| **The versioned Unreal Engine artifacts are reproducible** | The current [v0.1.2 release](https://github.com/SeeleAI/seele-scatter-regions/releases/tag/v0.1.2), source, and [packaging scripts](https://github.com/SeeleAI/seele-scatter-regions/tree/main/Scripts) target UE 5.8; the [v0.1.0 release](https://github.com/SeeleAI/seele-scatter-regions/releases/tag/v0.1.0) remains available for UE 5.5 |
 | **SEELE AI can build a complete playable Unreal Engine 5 game from a prompt** | [Echoes of the Wildwater on IndieDB](https://www.indiedb.com/games/echoes-of-the-wildwater), the [itch.io game page](https://seeleai.itch.io/echoes-of-the-wildwater), and the [online playable build](https://www.seeles.ai/play/485f44e9-903d-4e25-a6bd-fe14dbc7fada) |
 
 The plugin and the game demo are separate artifacts. This repository verifies
@@ -110,7 +111,10 @@ Unreal Engine 5.5 users can continue to use the
 
 ### 1. Install the Plugin
 
-Clone the repository into your Unreal project's `Plugins` directory:
+For Unreal Engine 5.8, download the validated
+[v0.1.2 release](https://github.com/SeeleAI/seele-scatter-regions/releases/tag/v0.1.2)
+and extract its `SeeleScatterRegions` folder into your Unreal project's
+`Plugins` directory. You can also clone the source directly:
 
 ```powershell
 cd <YourUnrealProject>\Plugins
